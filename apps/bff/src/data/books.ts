@@ -1,0 +1,58 @@
+import { Book } from '../app/books/book.interface';
+
+export const books: Book[] = [
+  {
+    id: '1',
+    title: 'Fundamentals of Wavelets',
+    author: 'Goswami, Jaideva',
+    isbn: '9780470926994',
+    category: 'nonfiction',
+    inventory: 9,
+    notes: null,
+  },
+  {
+    id: '2',
+    title: 'Age of Wrath, The',
+    author: 'Eraly, Abraham',
+    isbn: '9780143422266',
+    category: 'nonfiction',
+    inventory: 0,
+    notes: 'Backordered until the end of the year',
+  },
+  {
+    id: '3',
+    title: 'Slaughterhouse Five',
+    author: 'Vonnegut, Kurt',
+    isbn: '9780440180296',
+    category: 'fiction',
+    inventory: 3,
+    notes: null,
+  },
+  {
+    id: '4',
+    title: 'Moon is Down, The',
+    author: 'Steinbeck, John',
+    isbn: '9780143106135',
+    category: 'fiction',
+    inventory: 12,
+    notes: null,
+  },
+  {
+    id: '5',
+    title: 'Dylan on Dylan',
+    author: 'Dylan, Bob',
+    isbn: '9780912777429',
+    category: 'nonfiction',
+    inventory: 12,
+    notes: null,
+  },
+  {
+    id: '6',
+    title: 'Journal of a Novel',
+    author: 'Steinbeck, John',
+    isbn: '9780140144185',
+    category: 'fiction',
+    inventory: 8,
+    notes: 'Reorder in November',
+  },
+];

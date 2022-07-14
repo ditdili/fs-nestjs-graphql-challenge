@@ -1,0 +1,18 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Book {
+  id: ID!
+  title: String!
+  author: String!
+  isbn: String!
+  category: String
+  inventory: Int!
+  notes: String
+}
+
+type Query {
+  getBook(id: ID!): Book!
+  getBooks: [Book!]!
+}

@@ -1,0 +1,45 @@
+query getBook($id: ID!) {
+  getBook(id: $id) {
+    id
+    title
+    author
+    isbn
+    category
+    inventory
+    notes
+  }
+}
+
+query getBooks {
+  getBooks {
+    id
+    title
+    author
+    isbn
+    category
+    inventory
+    notes
+  }
+}
+
+input BookInput {
+  id: ID!
+  title: String!
+  author: String!
+  isbn: String!
+  category: String
+  inventory: Int!
+  notes: String
+}
+
+mutation addBook($book: BookInput!) {
+  addBook(book: $book) {
+    id
+    title
+    author
+    isbn
+    category
+    inventory
+    notes
+  }
+}
