@@ -19,6 +19,7 @@ type Query {
 
 type Mutation {
   addBook(book: BookInput!): [Book!]!
+  updateBook(book: BookInputUpdate!): Book!
 }
 
 input BookInput {
@@ -29,4 +30,14 @@ input BookInput {
   category: String
   inventory: Int!
   notes: String
+}
+
+input BookInputUpdate {
+  title: String
+  author: String
+  category: String
+  inventory: Int
+  notes: String
+  id: ID!
+  isbn: String!
 }
