@@ -1,11 +1,21 @@
 import styled from '@emotion/styled';
-import { Card, CardContent, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { GetBooksQuery } from '../../../../../libs/data-access/src';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface BookListProps {
   data?: GetBooksQuery;
+  setOpenEdit: any;
 }
 
 const StyledBookList = styled.div`
@@ -13,10 +23,17 @@ const StyledBookList = styled.div`
 `;
 
 export function BookList(props: BookListProps) {
-  const { data } = props;
+  const { data, setOpenEdit } = props;
+  const navigate = useNavigate();
+
+  const openEdit = (id: string) => {
+    setOpenEdit(true);
+    navigate(`/edit-book/${id}`);
+  };
 
   return (
     <StyledBookList>
+      <Outlet />
       {data?.getBooks.map((book) => (
         <Card key={book.id} sx={{ marginTop: 1 }}>
           <CardContent>
@@ -57,6 +74,15 @@ export function BookList(props: BookListProps) {
               )}
             </Grid>
           </CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => openEdit(book.id)}
+            >
+              Edit
+            </Button>
+          </Box>
         </Card>
       ))}
     </StyledBookList>

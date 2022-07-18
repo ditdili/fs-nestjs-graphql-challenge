@@ -5,6 +5,8 @@ import BookList from './book-list/book-list';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import AddBook from './add-book/add-book';
 import BookDetail from './book-detail/book-detail';
+import FormDialog from './edit-book/edit-book.js';
+import { useState } from 'react';
 
 const BooksLogo = styled('img')(
   ({ theme }) => `
@@ -16,6 +18,7 @@ const BooksLogo = styled('img')(
 
 export function App() {
   const { data } = useGetBooksQuery();
+  const [openEdit, setOpenEdit] = useState(false);
 
   return (
     <BrowserRouter>
@@ -38,7 +41,15 @@ export function App() {
         </Typography>
         <Link to="/add-book">Add Book</Link>
         <Routes>
-          <Route index element={<BookList data={data} />} />
+          <Route
+            path="/"
+            element={<BookList data={data} setOpenEdit={setOpenEdit} />}
+          >
+            <Route
+              path="/edit-book/:id"
+              element={<FormDialog open={openEdit} setOpenEdit={setOpenEdit} />}
+            />
+          </Route>
           <Route path="/add-book" element={<AddBook />} />
           <Route path="/book/:id" element={<BookDetail />} />
         </Routes>

@@ -32,8 +32,30 @@ input BookInput {
   notes: String
 }
 
+input BookInputUpdate {
+  title: String
+  author: String
+  category: String
+  inventory: Int
+  notes: String
+  id: ID!
+  isbn: String!
+}
+
 mutation addBook($book: BookInput!) {
   addBook(book: $book) {
+    id
+    title
+    author
+    isbn
+    category
+    inventory
+    notes
+  }
+}
+
+mutation updateBook($book: BookInputUpdate!) {
+  updateBook(book: $book) {
     id
     title
     author
