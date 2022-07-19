@@ -28,8 +28,14 @@ const root = ReactDOM.createRoot(
 const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach((error: GraphQLError) => {
-      const { response } = error.extensions;
-      alert(`GraphQL Error: ${JSON.stringify(response, null, 2)}`);
+      console.log(error);
+      const { response, code } = error.extensions;
+
+      if (code === 'BAD_USER_INPUT') {
+        alert(`GraphQL Error: ${JSON.stringify(response, null, 2)}`);
+      } else {
+        alert(`GraphQL Error: ${error.message}`);
+      }
     });
   }
 

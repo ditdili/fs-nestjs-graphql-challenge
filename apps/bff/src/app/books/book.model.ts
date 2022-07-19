@@ -15,7 +15,8 @@ import {
   Length,
   Validate,
 } from 'class-validator';
-import { IsbnExistsRule } from '../utils/customUniqueIsbn';
+import { IdExistsRuleOnUpdate } from '../utils/custom-unique-id';
+import { IsbnExistsRule } from '../utils/custom-unique-isbn';
 
 @ObjectType()
 export class Book {
@@ -87,6 +88,7 @@ export class BookInputUpdate extends PartialType(
   OmitType(BookInput, ['id', 'isbn'])
 ) {
   @IsNumberString()
+  @Validate(IdExistsRuleOnUpdate)
   @Field(() => ID)
   id: string;
 
@@ -97,4 +99,7 @@ export class BookInputUpdate extends PartialType(
   @Validate(IsbnExistsRule)
   @Field()
   isbn: string;
+
+  @Field(() => ID)
+  prevId: string;
 }

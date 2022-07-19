@@ -73,6 +73,11 @@ export type QueryGetBookArgs = {
   id: Scalars['ID'];
 };
 
+
+export type QueryGetBooksArgs = {
+  search?: InputMaybe<Scalars['String']>;
+};
+
 export type GetBookQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -80,7 +85,9 @@ export type GetBookQueryVariables = Exact<{
 
 export type GetBookQuery = { __typename?: 'Query', getBook: { __typename?: 'Book', id: string, title: string, author: string, isbn: string, category?: string | null, inventory: number, notes?: string | null } };
 
-export type GetBooksQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetBooksQueryVariables = Exact<{
+  search: Scalars['String'];
+}>;
 
 
 export type GetBooksQuery = { __typename?: 'Query', getBooks: Array<{ __typename?: 'Book', id: string, title: string, author: string, isbn: string, category?: string | null, inventory: number, notes?: string | null }> };
@@ -142,8 +149,8 @@ export type GetBookQueryHookResult = ReturnType<typeof useGetBookQuery>;
 export type GetBookLazyQueryHookResult = ReturnType<typeof useGetBookLazyQuery>;
 export type GetBookQueryResult = Apollo.QueryResult<GetBookQuery, GetBookQueryVariables>;
 export const GetBooksDocument = gql`
-    query getBooks {
-  getBooks {
+    query getBooks($search: String!) {
+  getBooks(search: $search) {
     id
     title
     author
@@ -167,10 +174,11 @@ export const GetBooksDocument = gql`
  * @example
  * const { data, loading, error } = useGetBooksQuery({
  *   variables: {
+ *      search: // value for 'search'
  *   },
  * });
  */
-export function useGetBooksQuery(baseOptions?: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>) {
+export function useGetBooksQuery(baseOptions: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetBooksQuery, GetBooksQueryVariables>(GetBooksDocument, options);
       }

@@ -12,6 +12,7 @@ export class IsbnExistsRule implements ValidatorConstraintInterface {
 
   validate(isbn: string, args: ValidationArguments) {
     const { targetName } = args;
+    console.log(args);
 
     const isbnExists = this.bookService.findByIsbn(isbn);
 
@@ -22,7 +23,7 @@ export class IsbnExistsRule implements ValidatorConstraintInterface {
     const object = args.object as BookInputUpdate;
 
     // Checks if a book with isbn exists, but the ids are not matching
-    if (!!isbnExists && isbnExists.id !== object.id) {
+    if (!!isbnExists && isbnExists.id !== object.prevId) {
       return false;
     }
 

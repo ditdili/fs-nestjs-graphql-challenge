@@ -19,6 +19,7 @@ export default function FormDialog({ open, setOpenEdit }) {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
+  const [prevId, setPrevId] = useState('');
 
   const [updateBookMutation, { data }] = useUpdateBookMutation({
     onCompleted: () => {
@@ -45,7 +46,7 @@ export default function FormDialog({ open, setOpenEdit }) {
     validationSchema,
     onSubmit: (values) => {
       updateBookMutation({
-        variables: { book: values },
+        variables: { book: { ...values, prevId } },
         refetchQueries: ['getBooks'],
       });
     },
@@ -68,6 +69,7 @@ export default function FormDialog({ open, setOpenEdit }) {
       const { author, category, id, inventory, isbn, notes, title } =
         data.getBook;
       setBookInfo({ author, category, id, inventory, isbn, notes, title });
+      setPrevId(id);
     },
   });
 

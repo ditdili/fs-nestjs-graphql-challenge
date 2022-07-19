@@ -6,4 +6,5 @@ export interface Book {
   category?: string;
   inventory: number;
   notes?: string | null;
+  prevId?: string | null;
 }

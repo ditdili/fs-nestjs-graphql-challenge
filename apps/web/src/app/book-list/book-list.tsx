@@ -35,7 +35,7 @@ export function BookList(props: BookListProps) {
     <StyledBookList>
       <Outlet />
       {data?.getBooks.map((book) => (
-        <Card key={book.id} sx={{ marginTop: 1 }}>
+        <Card key={book.id} sx={{ marginTop: 2 }}>
           <CardContent>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>

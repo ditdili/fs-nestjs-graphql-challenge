@@ -10,8 +10,8 @@ query getBook($id: ID!) {
   }
 }
 
-query getBooks {
-  getBooks {
+query getBooks($search: String!) {
+  getBooks(search: $search) {
     id
     title
     author
@@ -40,6 +40,7 @@ input BookInputUpdate {
   notes: String
   id: ID!
   isbn: String!
+  prevId: ID!
 }
 
 mutation addBook($book: BookInput!) {

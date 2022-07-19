@@ -6,7 +6,9 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import AddBook from './add-book/add-book';
 import BookDetail from './book-detail/book-detail';
 import FormDialog from './edit-book/edit-book.js';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import SearchBar from './search-bar';
+import { debounce } from 'lodash';
 
 const BooksLogo = styled('img')(
   ({ theme }) => `
@@ -17,8 +19,30 @@ const BooksLogo = styled('img')(
 );
 
 export function App() {
-  const { data } = useGetBooksQuery();
   const [openEdit, setOpenEdit] = useState(false);
+  const [search, setSearch] = useState('');
+
+  const { data } = useGetBooksQuery({
+    variables: { search },
+  });
+
+  const debouncedSearch = useRef(
+    debounce((val) => {
+      setSearch(val);
+    }, 800)
+  ).current;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
+
+  console.log(search);
 
   return (
     <BrowserRouter>
@@ -36,10 +60,18 @@ export function App() {
         <Typography variant="h2" component="h1">
           Welcome to Books-R-Us!
         </Typography>
-        <Typography variant="subtitle1">
-          Check out all of our great books we have to offer.
-        </Typography>
-        <Link to="/add-book">Add Book</Link>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', my: 2 }}>
+          <Box>
+            <Typography variant="subtitle1">
+              Check out all of our great books we have to offer.
+            </Typography>
+            <Link to="/add-book">Add Book</Link>
+          </Box>
+          <Box>
+            <SearchBar handleChange={handleChange} />
+          </Box>
+        </Box>
+
         <Routes>
           <Route
             path="/"

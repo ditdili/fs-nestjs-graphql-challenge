@@ -12,8 +12,8 @@ export class BooksResolver {
   }
 
   @Query(() => [Book])
-  async getBooks() {
-    return this.booksService.find();
+  async getBooks(@Args('search', { nullable: true }) search?: string) {
+    return this.booksService.find(search);
   }
 
   @Mutation(() => [Book])

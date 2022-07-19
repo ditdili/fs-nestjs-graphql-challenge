@@ -14,7 +14,7 @@ type Book {
 
 type Query {
   getBook(id: ID!): Book!
-  getBooks: [Book!]!
+  getBooks(search: String): [Book!]!
 }
 
 type Mutation {
@@ -40,4 +40,5 @@ input BookInputUpdate {
   notes: String
   id: ID!
   isbn: String!
+  prevId: ID!
 }
